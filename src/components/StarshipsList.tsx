@@ -6,7 +6,7 @@ const StarshipsList = () => {
 
     return (
         <>
-            <section className="flex flex-col gap-4 w-1/2 mt-10 m-auto">
+            <section className="flex flex-col gap-4 mt-10 px-10 m-auto md:w-2/3 lg:w-1/2">
             {
                 data?.results.map(starship => (
                     <Card key={starship.url}>

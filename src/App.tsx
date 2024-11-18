@@ -1,15 +1,20 @@
-import Header from "./components/Header"
-import Navbar from "./components/Navbar"
-import StarshipsList from "./components/StarshipsList"
+import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom"
+import HomePage from "./pages/HomePage";
+import StarshipsPage from "./pages/StarshipsPage";
+import MainLayout from "./layouts/MainLayout";
 
 function App() {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path="/" element={<MainLayout />}>
+        <Route path="/starships" element={<StarshipsPage />} />
+        <Route index element={<HomePage />} />
+      </Route>
+    )
+  );
 
   return (
-    <>
-      <Header />
-      <Navbar />
-      <StarshipsList />
-    </>
+    <RouterProvider router={router}/>
   )
 }
 
