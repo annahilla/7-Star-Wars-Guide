@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-interface Starship {
+export interface Starship {
     name: string;
     model: string;
     manufacturer: string;
@@ -21,22 +21,33 @@ interface Response {
 
 const useStarships = () => {
     const [data, setData] = useState<Response>();
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchStarships = async () => {
+            setLoading(true);
+            setError(null);
+
             try {
                 const response = await fetch("https://swapi.dev/api/starships");
+                if (!response.ok) {
+                    throw new Error("Error fetching starships");
+                }
+
                 const result: Response = await response.json();
                 setData(result);
             } catch (error) {
-                console.log(error);
-            } 
+                setError((error as Error).message);
+            } finally {
+                setLoading(false);
+            }
         }
 
         fetchStarships();
     }, [])
 
-    return { data };
+    return { data, loading, error };
 }
 
 export default useStarships;

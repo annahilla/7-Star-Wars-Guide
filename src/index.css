@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
-    @apply bg-black text-white font-space;
-  }
+html,
+body {
+  @apply bg-black text-white font-space;
+}

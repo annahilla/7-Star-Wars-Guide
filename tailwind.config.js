@@ -7,7 +7,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'space': ['Space Mono', 'monospace'], 
+        'space': ['Space Mono', 'monospace'],
+      },
+      backgroundImage: {
+        'space': "url('@/assets/bg-img.png')",
       },
       black: "#000000",
       white: "#ffffff"
