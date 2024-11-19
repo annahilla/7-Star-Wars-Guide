@@ -3,7 +3,7 @@ import logo from "../assets/logo.png";
 
 const Header = () => {
   return (
-    <header className="h-44 flex items-center flex-col md:flex-row md:relative">
+    <header className="h-60 flex items-center flex-col md:flex-row md:relative md:h-44">
       <Link className="m-auto" to="/">
         <img
           className="w-60 h-24 object-cover"
