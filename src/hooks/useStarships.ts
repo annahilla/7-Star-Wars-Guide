@@ -1,44 +1,57 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Starship } from "../types/types";
 import { getStarships } from "../redux/starshipsSlice";
 import { RootState } from "../redux/store";
 
 const useStarships = () => {
     const starships = useSelector((state: RootState) => state.starships);
     const dispatch = useDispatch();
+    const observer = useRef<IntersectionObserver | null>(null);
+    const lastStarshipRef = useRef<HTMLDivElement | null>(null);
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [url, setUrl] = useState("https://swapi.dev/api/starships");
 
-    useEffect(() => {
-        const fetchAllStarships = async () => {
+    const fetchStarships = async (url: string) => {
         setLoading(true);
         setError(null);
-          let allStarships: Starship[] = [];
-          let nextUrl = "https://swapi.dev/api/starships"; 
-    
           try {
-            while (nextUrl) {
-              const response = await fetch(nextUrl);
-              const data = await response.json();
-              allStarships = [...allStarships, ...data.results]; 
-              nextUrl = data.next;
-            }
-    
-            dispatch(getStarships(allStarships));
+            const response = await fetch(url);
+            const data = await response.json();
+            dispatch(getStarships(data.results));
+            data.next === null ? setUrl("") : setUrl(data.next);
           } catch (error) {
             console.error("Error fetching starships:", error);
             setError((error as Error).message)
           } finally {
             setLoading(false);
           }
-        };
-    
-        fetchAllStarships();
-      }, [dispatch]);
+    };
 
-      return { starships, loading, error }
+    useEffect(() => {
+        const handleObserver = (entries: IntersectionObserverEntry[]) => {
+            const entry = entries[0];
+            if (entry.isIntersecting && url) {
+              fetchStarships(url);
+            }
+        };
+
+        observer.current = new IntersectionObserver(handleObserver, { threshold: 1.0 });
+
+        if (lastStarshipRef.current) {
+            observer.current.observe(lastStarshipRef.current);
+        }
+
+        return () => {
+            if (observer.current && lastStarshipRef.current) {
+              observer.current.unobserve(lastStarshipRef.current);
+            }
+        };
+    }, [dispatch, url])
+
+
+      return { starships, loading, error, lastStarshipRef  }
 }
 
 export default useStarships;

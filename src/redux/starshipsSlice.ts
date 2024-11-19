@@ -7,8 +7,8 @@ const starshipsSlice = createSlice({
   name: "starships",
   initialState,
   reducers: {
-    getStarships: (_, action: PayloadAction<Starship[]>) => {
-      return action.payload;
+    getStarships: (state, action: PayloadAction<Starship[]>) => {
+      state.push(...action.payload);
     }
   },
 });

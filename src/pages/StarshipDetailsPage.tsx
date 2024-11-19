@@ -24,11 +24,11 @@ const StarshipDetailsPage = () => {
   const starshipId = starship?.url.split("/").slice(-2, -1)[0];
   const imageUrl = `https://starwars-visualguide.com/assets/img/starships/${starshipId}.jpg`;
 
-  if (loading) return <TextMessage>Loading...</TextMessage>;
-  if (error) return <TextMessage>Error: {error}</TextMessage>;
-
   return (
-    <section className="bg-space bg-contain bg-right bg-no-repeat m-auto w-4/5 md:w-2/3">
+    <>
+      { loading && <TextMessage>Loading...</TextMessage> }
+      { error && <TextMessage>Error: {error}</TextMessage> }
+      <section className="bg-space bg-contain bg-right bg-no-repeat m-auto w-4/5 md:w-2/3">
       <div className="text-neutral-300 text-xl border-y border-neutral-800 py-4 mt-10">
         <h3 className="uppercase mx-10 text-center md:text-left">Starships</h3>
       </div>
@@ -60,6 +60,7 @@ const StarshipDetailsPage = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

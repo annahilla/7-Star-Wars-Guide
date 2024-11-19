@@ -5,15 +5,13 @@ import useStarships from "../hooks/useStarships";
 import TextMessage from "../components/ui/TextMessage";
 
 const StarshipsPage = () => {
-  const { starships, loading, error } = useStarships();
-
-  if (loading) return <TextMessage>Loading...</TextMessage>;
-  if (error) return <TextMessage>Error: {error}</TextMessage>;
+  const { starships, loading, error, lastStarshipRef  } = useStarships();
 
   return (
     <>
-      <section className="flex flex-col gap-4 my-10 px-10 m-auto md:w-2/3 lg:w-1/2">
-        {starships.map((starship: Starship) => {
+    { error && <TextMessage>Error: {error}</TextMessage> }
+      <section className="flex flex-col gap-4 my-8 px-10 m-auto md:w-2/3 lg:w-1/2">
+        { starships.map((starship: Starship, index) => {
           return (
             <Link key={starship.url} to={`${starship.name}`}>
               <Card>
@@ -24,7 +22,9 @@ const StarshipsPage = () => {
               </Card>
             </Link>
           );
-        })}
+        }) }
+        <div ref={lastStarshipRef}/>
+        { loading && <TextMessage>Loading...</TextMessage> }
       </section>
     </>
   );
