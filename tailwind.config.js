@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'space': ['Space Mono', 'monospace'],
+        'sans': ['"DIN Next"', 'sans-serif'],
       },
       backgroundImage: {
         'space': "url('@/assets/bg-img.png')",

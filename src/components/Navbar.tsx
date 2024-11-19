@@ -2,12 +2,12 @@ import NavItem from "./ui/NavItem";
 
 const Navbar = () => {
   return (
-    <nav className="border-t border-b border-neutral-800">
-      <ul className="h-10 flex items-center justify-center m-auto w-fit border-x border-neutral-800">
-        <NavItem to="/" hasBorder={true}>
+    <nav className="border-b border-neutral-800">
+      <ul className="h-10 flex items-center justify-center m-auto w-fit">
+        <NavItem to="/">
           Home
         </NavItem>
-        <NavItem to="/starships" hasBorder={false}>
+        <NavItem to="/starships">
           Starships
         </NavItem>
       </ul>

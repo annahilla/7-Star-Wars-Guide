@@ -4,19 +4,17 @@ import { NavLink } from "react-router-dom";
 interface NavItemProps {
   to: string;
   children: ReactNode;
-  hasBorder?: boolean;
 }
 
-const NavItem = ({ to, children, hasBorder = true }: NavItemProps) => {
+const NavItem = ({ to, children}: NavItemProps) => {
+
   return (
     <li
-      className={`flex items-center h-10 uppercase text-neutral-400 relative hover:text-neutral-300 ${
-        hasBorder ? "border-r border-neutral-800" : ""
-      }`}
+      className="flex items-center font-bold h-10 uppercase text-neutral-400 relative hover:text-neutral-300 px-6"
     >
       <NavLink
         className={({ isActive }) =>
-          isActive ? "border-b-2 border-neutral-700 px-6 py-2" : "px-6"
+          isActive ? "text-neutral-300 rounded-sm py-2 relative after:absolute after:bottom-0 after:left-1/2 after:w-2/3 after:h-[2px] after:bg-yellow-200 after:transform after:-translate-x-1/2 after:shadow-md after:shadow-yellow-200" : ""
         }
         to={to}
       >

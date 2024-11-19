@@ -11,7 +11,7 @@ const StarshipsPage = () => {
     <>
     { error && <TextMessage>Error: {error}</TextMessage> }
       <section className="flex flex-col gap-4 my-8 px-10 m-auto md:w-2/3 lg:w-1/2">
-        { starships.map((starship: Starship, index) => {
+        { starships.map((starship: Starship) => {
           return (
             <Link key={starship.url} to={`${starship.name}`}>
               <Card>
