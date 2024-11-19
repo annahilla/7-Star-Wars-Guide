@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { RootState } from '../redux/store';
 import { Starship } from "../types/types";
 import Card from "../components/ui/Card";
+import useStarships from "../hooks/useStarships";
+import TextMessage from "../components/ui/TextMessage";
 
 const StarshipsPage = () => {
-  const starships = useSelector((state: RootState) => state.starships);
+  const { starships, loading, error } = useStarships();
+
+  if (loading) return <TextMessage>Loading...</TextMessage>;
+  if (error) return <TextMessage>Error: {error}</TextMessage>;
 
   return (
     <>
-      <section className="flex flex-col gap-4 mt-10 px-10 m-auto md:w-2/3 lg:w-1/2">
+      <section className="flex flex-col gap-4 my-10 px-10 m-auto md:w-2/3 lg:w-1/2">
         {starships.map((starship: Starship) => {
           return (
             <Link key={starship.url} to={`${starship.name}`}>

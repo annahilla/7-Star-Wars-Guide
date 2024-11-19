@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 import { Starship } from "../types/types";
+import useStarships from "../hooks/useStarships";
+import TextMessage from "../components/ui/TextMessage";
 
 const StarshipDetailsPage = () => {
-  const starships = useSelector((state: RootState) => state.starships);
+  const { starships, loading, error } = useStarships();
   const [starship, setStarship] = useState<Starship>()
   const { name } = useParams<{ name: string }>();
 
@@ -23,6 +23,9 @@ const StarshipDetailsPage = () => {
 
   const starshipId = starship?.url.split("/").slice(-2, -1)[0];
   const imageUrl = `https://starwars-visualguide.com/assets/img/starships/${starshipId}.jpg`;
+
+  if (loading) return <TextMessage>Loading...</TextMessage>;
+  if (error) return <TextMessage>Error: {error}</TextMessage>;
 
   return (
     <section className="bg-space bg-contain bg-right bg-no-repeat m-auto w-4/5 md:w-2/3">
