@@ -1,13 +1,10 @@
-
 export interface Starship {
-  name: string;
-  model: string;
-  manufacturer: string;
-  cost_in_credits: string;
-  length: string;
-  crew: string;
-  passengers: string;
-  starship_class: string;
-  max_atmosphering_speed?: string;
-  url: string;
+  name: string,
+  model: string,
+  cost_in_credits: string,
+  max_atmosphering_speed: string,
+  manufacturer: string,
+  length: string,
+  crew: string,
+  url: string,
 }

@@ -1,31 +1,28 @@
 import { useParams } from "react-router-dom";
-import useStarships from "../hooks/useStarships";
 import { useEffect, useState } from "react";
-import { Starship } from "../hooks/useStarships";
-import TextMessage from "./ui/TextMessage";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { Starship } from "../types/types";
 
-const StarshipDetails = () => {
+const StarshipDetailsPage = () => {
+  const starships = useSelector((state: RootState) => state.starships);
+  const [starship, setStarship] = useState<Starship>()
   const { name } = useParams<{ name: string }>();
-  const { data, loading, error } = useStarships();
-  const [starship, setStarship] = useState<Starship>();
+
 
   useEffect(() => {
-    if (data?.results) {
-      const selectedStarship = data.results.find(
+    if (starships) {
+      const selectedStarship = starships.find(
         (starship) => starship.name === name
       );
       setStarship(selectedStarship);
     }
 
     console.log(starship);
-  }, [data, name]);
+  }, [starships, name]);
 
   const starshipId = starship?.url.split("/").slice(-2, -1)[0];
   const imageUrl = `https://starwars-visualguide.com/assets/img/starships/${starshipId}.jpg`;
-
-  if (loading) return <TextMessage>Loading...</TextMessage>;
-  if (error) return <TextMessage>Error: {error}</TextMessage>;
-  if (!starship) return <TextMessage>Starship not found.</TextMessage>;
 
   return (
     <section className="bg-space bg-contain bg-right bg-no-repeat m-auto w-4/5 md:w-2/3">
@@ -37,24 +34,24 @@ const StarshipDetails = () => {
         <img
           className="object-cover lg:w-2/5 lg:flex-1"
           src={imageUrl}
-          alt={starship.name}
+          alt={starship?.name}
         />
         <div className="bg-neutral-800 py-8 px-5 text-neutral-400 border-l border-l-2 border-red-800 rounded-r-lg text-sm">
-          <h5 className="uppercase text-2xl">{starship.name}</h5>
+          <h5 className="uppercase text-2xl">{starship?.name}</h5>
           <p className="my-8">
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corrupti,
             explicabo?
           </p>
           <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
             <div className="flex flex-col gap-3">
-              <p>Model: {starship.model}</p>
-              <p>Cost in credits: {starship.cost_in_credits}</p>
-              <p>Atmospheric speed: {starship.max_atmosphering_speed}</p>
+              <p>Model: {starship?.model}</p>
+              <p>Cost in credits: {starship?.cost_in_credits}</p>
+              <p>Atmospheric speed: {starship?.max_atmosphering_speed}</p>
             </div>
             <div className="flex flex-col gap-3">
-              <p>Manufacturer: {starship.manufacturer}</p>
-              <p>Length: {starship.length}</p>
-              <p>Crew: {starship.crew}</p>
+              <p>Manufacturer: {starship?.manufacturer}</p>
+              <p>Length: {starship?.length}</p>
+              <p>Crew: {starship?.crew}</p>
             </div>
           </div>
         </div>
@@ -63,4 +60,4 @@ const StarshipDetails = () => {
   );
 };
 
-export default StarshipDetails;
+export default StarshipDetailsPage;
