@@ -11,6 +11,7 @@ export default {
       },
       backgroundImage: {
         'space': "url('@/assets/bg-img.png')",
+        'millennium-falcon': "url('@/assets/millennium-falcon.jpg')"
       },
       black: "#000000",
       white: "#ffffff"
