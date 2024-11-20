@@ -23,8 +23,10 @@ const Header = () => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsDropdownOpen(false);
       }
     };
@@ -43,11 +45,11 @@ const Header = () => {
   }, [isLoggedIn]);
 
   const toggleDropdown = () => {
-    setIsDropdownOpen((prev) => !prev); 
+    setIsDropdownOpen((prev) => !prev);
   };
 
   return (
-    <header className="my-7 flex items-center justify-between flex-col md:flex-row md:relative">
+    <header className="my-5 flex items-center justify-between flex-col md:flex-row md:relative">
       <div className="hidden lg:flex lg:items-center lg:gap-5 lg:absolute lg:mb-10 lg:left-20">
         <SocialMedia />
       </div>
@@ -56,13 +58,26 @@ const Header = () => {
       </Link>
       <div className="flex gap-5 text-neutral-200 font-bold mt-8 md:absolute md:mt-0 md:mb-10 md:right-20">
         {isLoggedIn ? (
-          <div ref={dropdownRef} className={isDropdownOpen ? `mb-8 flex flex-col items-center w-56 md:mb-0` : `flex flex-col items-center w-56`}>
-            <button  onClick={toggleDropdown} className="relative uppercase">Welcome {username}</button>
+          <div
+            ref={dropdownRef}
+            className={
+              isDropdownOpen
+                ? `mb-8 flex flex-col items-center w-56 md:mb-0`
+                : `flex flex-col items-center w-56`
+            }
+          >
+            <button onClick={toggleDropdown} className="relative uppercase">
+              Welcome {username}
+            </button>
             {isDropdownOpen && (
-                <button onClick={handleLogout} className="absolute my-8 text-sm uppercase border border-neutral-800 text-neutral-400 py-2 px-10 w-56 md:my-0 md:top-8 ">Log Out</button>
+              <button
+                onClick={handleLogout}
+                className="absolute my-8 text-sm uppercase border border-neutral-800 text-neutral-400 py-2 px-10 w-56 md:my-0 md:top-8 hover:text-neutral-300"
+              >
+                Log Out
+              </button>
             )}
           </div>
-          
         ) : (
           <>
             <Link to="/signup" className="uppercase hover:text-neutral-100">
@@ -86,5 +101,3 @@ const Header = () => {
 };
 
 export default Header;
-
-

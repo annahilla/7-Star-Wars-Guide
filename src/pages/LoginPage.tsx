@@ -18,10 +18,10 @@ const LoginPage = () => {
     try {
       await dispatch(loginUser({ email, password })).unwrap();
       const redirectTo = location.state?.from?.pathname || "/";
-      navigate(redirectTo); 
+      navigate(redirectTo);
     } catch (err) {
       console.error("Error during sign up:", err);
-    };
+    }
   };
 
   useEffect(() => {

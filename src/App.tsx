@@ -13,35 +13,32 @@ import SignUpPage from "./pages/SignUpPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
-import AuthListener from "./utils/AuthListener";
+import { useEffect } from "react";
 
 function App() {
   const isLoggedIn = useSelector(
     (state: RootState) => state.auth.isAuthenticated
   );
-  
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<MainLayout />}>
         <Route index element={<HomePage />} />
-        <Route element={<ProtectedRoute canActivate={isLoggedIn} redirectPath="/login" />}>
+        <Route
+          element={
+            <ProtectedRoute canActivate={isLoggedIn} redirectPath="/login" />
+          }
+        >
           <Route path="/starships" element={<StarshipsPage />} />
           <Route path="/starships/:name" element={<StarshipDetails />} />
         </Route>
-        <Route element={<ProtectedRoute canActivate={!isLoggedIn} redirectPath="/" />}>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-        </Route>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
       </Route>
     )
   );
 
-  return (
-    <>
-      <AuthListener />
-      <RouterProvider router={router} />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -1,6 +1,6 @@
 const Banner = () => {
   return (
-    <div className="uppercase text-neutral-100 m-auto py-5 font-semibold text-sm text-center">
+    <div className="uppercase text-neutral-100 m-auto py-3 font-semibold text-sm text-center">
       Star Wars: All the information you need right here
     </div>
   );

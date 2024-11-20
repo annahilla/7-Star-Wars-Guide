@@ -14,7 +14,9 @@ export const loginUser = createAsyncThunk(
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      thunkAPI.dispatch(setUser({ email: user.email! }));
+      const userData = { email: user.email! };
+      thunkAPI.dispatch(setUser(userData));
+      return userData;
     } catch (error: any) {
       if(error.code === "auth/invalid-credential") {
         const errorMessage = "Your email or password are incorrect."
