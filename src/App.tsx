@@ -13,7 +13,6 @@ import SignUpPage from "./pages/SignUpPage";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
-import { useEffect } from "react";
 
 function App() {
   const isLoggedIn = useSelector(

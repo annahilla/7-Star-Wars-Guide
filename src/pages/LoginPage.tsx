@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { loginUser } from "../redux/authActions";
@@ -13,12 +13,20 @@ const LoginPage = () => {
   const error = useSelector((state: RootState) => state.auth.error);
   const navigate = useNavigate();
   const location = useLocation();
+  const isLoggedIn = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      const redirectTo = location.state?.from?.pathname || "/";
+      navigate(redirectTo, { replace: true });
+    }
+  }, [isLoggedIn]);
 
   const handleLogin = async () => {
     try {
       await dispatch(loginUser({ email, password })).unwrap();
-      const redirectTo = location.state?.from?.pathname || "/";
-      navigate(redirectTo);
     } catch (err) {
       console.error("Error during sign up:", err);
     }

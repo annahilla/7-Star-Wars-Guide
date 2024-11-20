@@ -15,7 +15,7 @@ const StarshipsPage = () => {
         <div className="flex flex-col m-auto gap-4 py-8 md:w-2/3 lg:w-1/2">
           {starships.map((starship: Starship) => {
             return (
-              <Link key={starship.name} to={`${starship.name}`}>
+              <Link key={starship.model} to={`${starship.name}`}>
                 <Card>
                   <h3 className="text-neutral-300 font-semibold uppercase text-lg">
                     {starship.name}
