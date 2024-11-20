@@ -17,6 +17,7 @@ export const loginUser = createAsyncThunk(
       thunkAPI.dispatch(setUser({ email: user.email! }));
     } catch (error: any) {
       thunkAPI.dispatch(setError(error.message));
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -24,16 +25,31 @@ export const loginUser = createAsyncThunk(
 export const signUpUser = createAsyncThunk(
   "auth/signUpUser",
   async (
-    { email, password }: User,
-    { dispatch }
+    { email, password }: User, thunkAPI
   ) => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const userEmail = userCredential.user.email || "";
       
-      dispatch(setUser({ email: userEmail }));
+      thunkAPI.dispatch(setUser({ email: userEmail }));
     } catch (error: any) {
-      dispatch(setError(error.message));
+      if (error.code === "auth/email-already-in-use") {
+        const errorMessage = "This email is already in use.";
+        thunkAPI.dispatch(setError(errorMessage));
+        return thunkAPI.rejectWithValue(errorMessage);
+      } else if (error.code === "auth/invalid-email") {
+        const errorMessage = "Please enter a valid email.";
+        thunkAPI.dispatch(setError(errorMessage));
+        return thunkAPI.rejectWithValue(errorMessage); 
+      }  else if (error.code === "auth/weak-password") {
+        const errorMessage = "Password should be at least 6 characters.";
+        thunkAPI.dispatch(setError(errorMessage));
+        return thunkAPI.rejectWithValue(errorMessage);
+      } else {
+        const errorMessage = "There was an error in the registration, please try again later.";
+        thunkAPI.dispatch(setError(errorMessage));
+        return thunkAPI.rejectWithValue(errorMessage);
+      }
     }
   }
 );

@@ -1,6 +1,5 @@
 import Button from "./ui/Button";
 import { IoIosAlert } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
 
 interface UserFormProps {
   title: string;
@@ -21,21 +20,20 @@ const UserForm = ({
   error,
   onSubmit,
 }: UserFormProps) => {
-  const navigate = useNavigate();
   return (
     <div className="flex items-center justify-center m-auto mt-4 text-black lg:h-[40rem]">
-      <div className="bg-white rounded-lg p-16">
+      <div className="flex flex-col items-center justify-center bg-white rounded-lg py-14 px-8 w-[22rem] h-[32rem]">
         <form
           onSubmit={(e) => {
             e.preventDefault();
             onSubmit();
-            navigate("/");
           }}
-          className="flex flex-col gap-8 items-center justify-center py-12"
+          noValidate
+          className="flex flex-col gap-10 items-center justify-center p-4"
         >
           <h5 className="text-xl">{title}</h5>
           <input
-            className="p-3 rounded border border-neutral-300"
+            className="p-3 rounded border border-neutral-300 w-full"
             type="email"
             placeholder="Email"
             required
@@ -43,7 +41,7 @@ const UserForm = ({
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
-            className="p-3 rounded border border-neutral-300"
+            className="p-3 rounded border border-neutral-300  w-full"
             type="password"
             placeholder="Password"
             required
@@ -53,7 +51,7 @@ const UserForm = ({
           <Button as="button">Continue</Button>
         </form>
         {error && (
-          <p className="flex items-center justify-center gap-2 text-red-500 px-3 pb-8">
+          <p className="flex items-center justify-center gap-2 text-sm text-red-500 p-3 pb-8">
             <IoIosAlert />
             {error}
           </p>
