@@ -15,7 +15,7 @@ const StarshipsPage = () => {
         {starships.map((starship: Starship) => {
           return (
             <Link key={starship.name} to={`${starship.name}`}>
-              <Card bg="neutral-800">
+              <Card>
                 <h3 className="text-neutral-300 font-semibold uppercase text-lg">
                   {starship.name}
                 </h3>

@@ -1,30 +1,30 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
-import { loginUser } from "../redux/authActions";
+import { signUpUser } from "../redux/authActions";
 import UserForm from "../components/UserForm";
 
-const LoginPage = () => {
+const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch<AppDispatch>();
   const error = useSelector((state: RootState) => state.auth.error);
 
-  const handleLogin = () => {
-    dispatch(loginUser({ email, password }));
+  const handleSignUp = () => {
+    dispatch(signUpUser({ email, password }));
   };
 
   return (
     <UserForm
-      title="Log In"
+      title="Sign Up"
       email={email}
       password={password}
       setEmail={setEmail}
       setPassword={setPassword}
       error={error}
-      onSubmit={handleLogin}
+      onSubmit={handleSignUp}
     />
   );
 };
 
-export default LoginPage;
+export default SignUpPage;
