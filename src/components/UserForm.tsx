@@ -23,8 +23,8 @@ const UserForm = ({
 }: UserFormProps) => {
   const navigate = useNavigate();
   return (
-    <div className="m-auto mt-4 w-96 text-black">
-      <div className="bg-white rounded-lg">
+    <div className="flex items-center justify-center m-auto mt-4 text-black lg:h-[40rem]">
+      <div className="bg-white rounded-lg p-16">
         <form
           onSubmit={(e) => {
             e.preventDefault();
