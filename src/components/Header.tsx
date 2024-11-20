@@ -36,6 +36,12 @@ const Header = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (isLoggedIn) {
+      setIsDropdownOpen(false);
+    }
+  }, [isLoggedIn]);
+
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev); 
   };
@@ -80,3 +86,5 @@ const Header = () => {
 };
 
 export default Header;
+
+

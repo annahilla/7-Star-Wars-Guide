@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 interface ProtectedRouteProps {
     canActivate: boolean,
@@ -7,10 +7,12 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({
     canActivate,
-    redirectPath = "/"
+    redirectPath
 } : ProtectedRouteProps) => {
+    const location = useLocation();
+    
     if(!canActivate) {
-        return <Navigate to={redirectPath} replace />
+        return <Navigate to={redirectPath}  state={{ from: location }}  replace />
     }
 
     return <Outlet />

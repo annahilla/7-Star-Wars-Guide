@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../redux/store";
 import { loginUser } from "../redux/authActions";
 import UserForm from "../components/UserForm";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { setError } from "../redux/authSlice";
 
 const LoginPage = () => {
@@ -12,11 +12,13 @@ const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const error = useSelector((state: RootState) => state.auth.error);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = async () => {
     try {
       await dispatch(loginUser({ email, password })).unwrap();
-      navigate("/");
+      const redirectTo = location.state?.from?.pathname || "/";
+      navigate(redirectTo); 
     } catch (err) {
       console.error("Error during sign up:", err);
     };

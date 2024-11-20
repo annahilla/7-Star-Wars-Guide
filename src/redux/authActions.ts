@@ -16,8 +16,15 @@ export const loginUser = createAsyncThunk(
       const user = userCredential.user;
       thunkAPI.dispatch(setUser({ email: user.email! }));
     } catch (error: any) {
-      thunkAPI.dispatch(setError(error.message));
-      return thunkAPI.rejectWithValue(error.message);
+      if(error.code === "auth/invalid-credential") {
+        const errorMessage = "Your email or password are incorrect."
+        thunkAPI.dispatch(setError(errorMessage));
+        return thunkAPI.rejectWithValue(errorMessage);
+      } else {
+        const errorMessage = "There was an error in the login process, please try again later."
+        thunkAPI.dispatch(setError(errorMessage));
+        return thunkAPI.rejectWithValue(errorMessage);
+      }
     }
   }
 );
