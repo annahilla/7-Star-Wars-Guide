@@ -37,21 +37,21 @@ In addition, the app includes user authentication with Firebase to allow users t
 
 2. Open folder on your code editor:
 
-```bash
-  cd 7-Star-Wars-Guide && code .
-```
+   ```bash
+   cd 7-Star-Wars-Guide && code .
+   ```
 
 3. Install dependencies:
 
-```bash
-  npm install
-```
+   ```bash
+   npm install
+   ```
 
 4. Run the development server:
 
-```bash
-  npm run dev
-```
+   ```bash
+   npm run dev
+   ```
 
 ## Usage
 
