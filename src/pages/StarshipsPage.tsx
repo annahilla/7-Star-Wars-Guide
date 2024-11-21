@@ -1,13 +1,24 @@
 import { Link } from "react-router-dom";
 import { Starship } from "../types/types";
 import Card from "../components/ui/Card";
-import useStarships from "../hooks/useStarships";
 import TextMessage from "../components/ui/TextMessage";
 import { PropagateLoader } from "react-spinners";
 import { useEffect } from "react";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../redux/store";
+import { fetchStarships } from "../redux/starshipsSlice";
+
+export const useTypedSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 const StarshipsPage = () => {
-  const { starships, loadMoreStarships, loading, error } = useStarships();
+  const dispatch = useDispatch<AppDispatch>();
+  const { starships, nextPage, loading, error } = useTypedSelector((state) => state.starships);
+
+  const loadMoreStarships = () => {
+    if (nextPage && !loading) {
+      dispatch(fetchStarships(nextPage));
+    }
+  };
 
   useEffect(() => {
     loadMoreStarships();

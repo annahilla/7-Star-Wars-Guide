@@ -1,9 +1,5 @@
-interface TextMessageProps {
-  children: React.ReactNode;
-}
-
-const TextMessage = ({ children }: TextMessageProps) => {
-  return <p className="text-neutral-400 m-auto text-center py-4">{children}</p>;
+const TextMessage = ({ children }: { children: React.ReactNode }) => {
+  return <p className="text-neutral-300 m-auto text-center py-4">{children}</p>;
 };
 
 export default TextMessage;

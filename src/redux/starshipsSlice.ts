@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Starship } from "../types/types";
+import { Film, Pilot, Starship } from "../types/types";
 
 interface StarshipsState {
   starships: Starship[];
+  pilots: Pilot[];
+  films: Film[];
   nextPage: string | null;
   loading: boolean;
   error: string | null;
@@ -10,6 +12,8 @@ interface StarshipsState {
 
 const initialState: StarshipsState = {
   starships: [],
+  pilots: [],
+  films: [],
   nextPage: 'https://swapi.dev/api/starships',
   loading: false,
   error: null,
@@ -26,6 +30,18 @@ export const fetchStarships = createAsyncThunk(
     };
   }
 );
+
+export const fetchPilots = createAsyncThunk('starships/fetchPilots', 
+  async (urls: string[]) => {
+  const responses = await Promise.all(urls.map(url => fetch(url).then(res => res.json())));
+  return responses as Pilot[];
+});
+
+export const fetchFilms = createAsyncThunk('starships/fetchFilms', 
+  async (urls: string[]) => {
+  const responses = await Promise.all(urls.map(url => fetch(url).then(res => res.json())));
+  return responses as Film[];
+});
 
 
 const starshipsSlice = createSlice({
@@ -46,7 +62,29 @@ const starshipsSlice = createSlice({
     .addCase(fetchStarships.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch starships';
-      });
+    })
+    .addCase(fetchPilots.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(fetchPilots.fulfilled, (state, action) => {
+      state.loading = false;
+      state.pilots = action.payload;
+    })
+    .addCase(fetchPilots.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message || 'Failed to fetch pilots';
+    })
+    .addCase(fetchFilms.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(fetchFilms.fulfilled, (state, action) => {
+      state.loading = false;
+      state.films = action.payload;
+    })
+    .addCase(fetchFilms.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message || 'Failed to fetch films';
+    });
 },
 });
 

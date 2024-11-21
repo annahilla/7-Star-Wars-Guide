@@ -1,14 +1,23 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Starship } from "../types/types";
-import useStarships from "../hooks/useStarships";
 import TextMessage from "../components/ui/TextMessage";
 import { PropagateLoader } from "react-spinners";
+import Title from "../components/ui/Title";
+import Section from "../components/ui/Section";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../redux/store";
+import { fetchFilms, fetchPilots } from "../redux/starshipsSlice";
+import { useTypedSelector } from "./StarshipsPage";
+import PhotoCard from "../components/ui/PhotoCard";
+import { getIdFromUrl } from "../utils/getIdFromUrl";
 
 const StarshipDetailsPage = () => {
-  const { starships, loading, error } = useStarships();
+  const dispatch = useDispatch<AppDispatch>();
+  const { starships, pilots, films, loading, error } = useTypedSelector((state) => state.starships);
   const [starship, setStarship] = useState<Starship>();
   const { name } = useParams<{ name: string }>();
+  const [starshipId, setStarshipId] = useState<string>();
 
   useEffect(() => {
     if (starships) {
@@ -19,20 +28,32 @@ const StarshipDetailsPage = () => {
     }
   }, [starships, name]);
 
-  const starshipId = starship?.url.split("/").slice(-2, -1)[0];
+  useEffect(() => {
+    if (starship) {
+      if (starship.pilots.length > 0) {
+        dispatch(fetchPilots(starship.pilots));
+      }
+      if (starship.films.length > 0) {
+        dispatch(fetchFilms(starship.films));
+      }
+    }
+  }, [dispatch, starship]);
+
+  useEffect(() => {
+    if (starship) {
+      const id = getIdFromUrl(starship.url);
+      setStarshipId(id);
+    }
+  }, [starship]);
+
   const imageUrl = `https://starwars-visualguide.com/assets/img/starships/${starshipId}.jpg`;
 
   return (
-    <>
+    <div className="flex flex-col items-center gap-10 bg-space bg-contain bg-right bg-no-repeat">
       {loading && <PropagateLoader color="white" />}
       {error && <TextMessage>Error: {error}</TextMessage>}
-      <section className="bg-space bg-contain bg-right bg-no-repeat m-auto w-4/5 md:w-2/3">
-        <div className="text-neutral-300 text-xl border-y border-neutral-800 py-4">
-          <h3 className="uppercase mx-10 text-center md:text-left">
-            Starships
-          </h3>
-        </div>
-
+      <Section>
+        <Title label="Starships" />
         <div className="my-4 flex flex-col items-stretch justify-center gap-4 lg:flex-row">
           <img
             className="object-cover lg:w-2/5 lg:flex-1"
@@ -46,12 +67,12 @@ const StarshipDetailsPage = () => {
               Corrupti, explicabo?
             </p>
             <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 md:w-1/2">
                 <p>Model: {starship?.model}</p>
                 <p>Cost in credits: {starship?.cost_in_credits}</p>
                 <p>Atmospheric speed: {starship?.max_atmosphering_speed}</p>
               </div>
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 md:w-1/2">
                 <p>Manufacturer: {starship?.manufacturer}</p>
                 <p>Length: {starship?.length}</p>
                 <p>Crew: {starship?.crew}</p>
@@ -59,8 +80,46 @@ const StarshipDetailsPage = () => {
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </Section>
+
+      <Section>
+        <Title label="Pilots" />
+        <div className="flex flex-col gap-4 my-5 md:flex-row">
+        {
+       pilots.length > 0 
+          ? pilots.map(pilot => {
+            const pilotId = getIdFromUrl(pilot.url)
+            return (
+              <PhotoCard 
+                text={pilot.name}
+                imgUrl={`https://starwars-visualguide.com/assets/img/characters/${pilotId}.jpg`}
+              />
+            )
+          })
+          : <TextMessage>We couldn't find any pilots for this ship.</TextMessage>
+        }
+        </div>
+      </Section>
+
+      <Section>
+        <Title label="Films" />
+       <div className="flex flex-col gap-4 my-5 md:flex-row">
+       {
+        films.length > 0 
+          ? films.map(film => {
+            const filmId = getIdFromUrl(film.url);
+            return (
+              <PhotoCard 
+                text={film.title} 
+                imgUrl={`https://starwars-visualguide.com/assets/img/films/${filmId}.jpg`} 
+              />
+            )
+          })
+          : <TextMessage>We couldn't find any films for this ship.</TextMessage>
+        }
+       </div>
+      </Section>
+    </div>
   );
 };
 
