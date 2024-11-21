@@ -49,7 +49,7 @@ const Header = () => {
   };
 
   return (
-    <header className="my-5 flex items-center justify-between flex-col md:flex-row md:relative">
+    <div className="my-5 flex items-center justify-between flex-col md:flex-row md:relative">
       <div className="hidden lg:flex lg:items-center lg:gap-5 lg:absolute lg:mb-10 lg:left-20">
         <SocialMedia />
       </div>
@@ -96,7 +96,7 @@ const Header = () => {
           </>
         )}
       </div>
-    </header>
+    </div>
   );
 };
 
