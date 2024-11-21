@@ -21,8 +21,8 @@ const UserForm = ({
   onSubmit,
 }: UserFormProps) => {
   return (
-    <div className="bg-stars bg-contain flex items-start py-6 justify-center m-auto text-black h-[65vh]">
-      <div className="flex flex-col items-center justify-center p-5 bg-white rounded-lg w-[22rem] h-[60vh]">
+    <div className="bg-stars bg-contain flex items-center py-6 justify-center m-auto text-black min-h-[65vh]">
+      <div className="flex flex-col items-center justify-center p-5 bg-white rounded-lg w-[22rem] h-2/3">
         <form
           onSubmit={(e) => {
             e.preventDefault();
