@@ -9,7 +9,9 @@ const MainLayout = () => {
     <>
       <Header />
       <Navbar />
-      <Banner />
+      <div className="hidden md:block">
+        <Banner />
+      </div>
       <Outlet />
       <Footer />
     </>
