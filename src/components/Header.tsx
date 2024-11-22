@@ -54,7 +54,7 @@ const Header = () => {
         <SocialMedia />
       </div>
       <Link className="m-auto" to="/">
-        <img className="h-24 object-cover" src={logo} alt="Star Wars Logo" />
+        <img className="h-20 object-cover" src={logo} alt="Star Wars Logo" />
       </Link>
       <div className="flex gap-5 text-neutral-200 font-bold mt-8 md:absolute md:mt-0 md:mb-10 md:right-20">
         {isLoggedIn ? (

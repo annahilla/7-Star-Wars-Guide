@@ -9,6 +9,7 @@ export default {
     extend: {
       fontFamily: {
         'sans': ['"DIN Next"', 'sans-serif'],
+        'starwars': ['"Star Wars"', 'sans-serif'],
       },
       backgroundImage: {
         'space': "url('@/assets/bg-img.png')",
