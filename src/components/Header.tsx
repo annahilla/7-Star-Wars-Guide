@@ -67,7 +67,7 @@ const Header = () => {
             }
           >
             <button onClick={toggleDropdown} className="relative uppercase">
-              Welcome {username}
+              {username}
             </button>
             {isDropdownOpen && (
               <button
