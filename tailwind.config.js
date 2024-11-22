@@ -12,8 +12,6 @@ export default {
         'starwars': ['"Star Wars"', 'sans-serif'],
       },
       backgroundImage: {
-        'space': "url('@/assets/bg-img.png')",
-        'millennium-falcon': "url('@/assets/millennium-falcon.jpg')",
         'stars': "url('@/assets/stars.jpg')"
       },
       black: "#000000",
