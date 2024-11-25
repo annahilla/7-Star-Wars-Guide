@@ -51,7 +51,7 @@ const UserForm = ({
           <Button as="button">Continue</Button>
         </form>
         {error && (
-          <p className="flex items-center justify-center gap-2 text-sm text-red-500 p-3 pb-8">
+          <p role="alert" className="flex items-center justify-center gap-2 text-sm text-red-500 p-3 pb-8">
             <IoIosAlert />
             {error}
           </p>
