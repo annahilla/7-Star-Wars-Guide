@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/'
 import StarshipsPage from "../pages/StarshipsPage";
 import { render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
-import { createMockStore, mockState } from "../utils/mockStore";
+import { createMockStore, mockState } from "../../test/__mocks__/mockStore";
 import { BrowserRouter } from 'react-router-dom';
 
 const store = createMockStore({ 

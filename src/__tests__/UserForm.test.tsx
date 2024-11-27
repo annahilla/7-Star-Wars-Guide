@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/'
 import { fireEvent, render, screen } from "@testing-library/react";
 import UserForm from "../components/UserForm";
 import { Provider } from 'react-redux';
-import { createMockStore, mockState } from '../utils/mockStore';
+import { createMockStore, mockState } from '../../test/__mocks__/mockStore';
 
 const mockSetEmail = jest.fn();
 const mockSetPassword = jest.fn();

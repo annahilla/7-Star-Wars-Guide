@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { RootState } from "../redux/store";
-import authReducer from "../redux/authSlice";
-import starshipsReducer from "../redux/starshipsSlice";
+import { RootState } from "../../src/redux/store";
+import authReducer from "../../src/redux/authSlice";
+import starshipsReducer from "../../src/redux/starshipsSlice";
 
 export const mockState: RootState = {
     starships: {
