@@ -11,6 +11,12 @@ interface User {
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async ({ email, password }: User, thunkAPI) => {
+    if (!email || email.trim() === "") {
+      const errorMessage = "Please enter an email"; 
+      thunkAPI.dispatch(setError(errorMessage)); 
+      return thunkAPI.rejectWithValue(errorMessage);
+    }
+
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
@@ -36,6 +42,12 @@ export const signUpUser = createAsyncThunk(
   async (
     { email, password }: User, thunkAPI
   ) => {
+    if (!email || email.trim() === "") {
+      const errorMessage = "Please enter an email"; 
+      thunkAPI.dispatch(setError(errorMessage)); 
+      return thunkAPI.rejectWithValue(errorMessage);
+    }
+    
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const userEmail = userCredential.user.email || "";

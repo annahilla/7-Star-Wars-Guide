@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Film, Pilot, Starship } from "../types/types";
 
-interface StarshipsState {
+export interface StarshipsState {
   starships: Starship[];
   pilots: Pilot[];
   films: Film[];

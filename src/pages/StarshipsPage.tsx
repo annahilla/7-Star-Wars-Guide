@@ -44,9 +44,8 @@ const StarshipsPage = () => {
       <section className="bg-stars bg-contain px-10 min-h-96">
         <div className="flex flex-col m-auto gap-4 py-8 md:w-2/3 lg:w-1/2">
           {starships.map((starship: Starship) => {
-            const starshipId = crypto.randomUUID();
             return (
-              <div key={starshipId}>
+              <div key={starship.url}>
                 <Link to={`${starship.name}`}>
                   <Card>
                     <h3 className="text-neutral-300 font-semibold uppercase text-lg">
@@ -59,7 +58,7 @@ const StarshipsPage = () => {
             );
           })}
           {loading && (
-            <div className="m-auto">
+            <div role="progress-bar" className="m-auto">
               <PropagateLoader size={6} color="#bababa" />
             </div>
           )}

@@ -10,7 +10,6 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch<AppDispatch>();
-  const error = useSelector((state: RootState) => state.auth.error);
   const navigate = useNavigate();
   const location = useLocation();
   const isLoggedIn = useSelector(
@@ -45,7 +44,6 @@ const LoginPage = () => {
       password={password}
       setEmail={setEmail}
       setPassword={setPassword}
-      error={error}
       onSubmit={handleLogin}
     />
   );

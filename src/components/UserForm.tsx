@@ -1,5 +1,7 @@
+import { useSelector } from "react-redux";
 import Button from "./ui/Button";
 import { IoIosAlert } from "react-icons/io";
+import { RootState } from "../redux/store";
 
 interface UserFormProps {
   title: string;
@@ -7,7 +9,6 @@ interface UserFormProps {
   password: string;
   setEmail: (email: string) => void;
   setPassword: (password: string) => void;
-  error?: string | null;
   onSubmit: () => void;
 }
 
@@ -17,9 +18,10 @@ const UserForm = ({
   password,
   setEmail,
   setPassword,
-  error,
   onSubmit,
 }: UserFormProps) => {
+  const error = useSelector((state: RootState) => state.auth.error);
+
   return (
     <div className="bg-stars bg-contain flex items-center py-6 justify-center m-auto text-black min-h-[65vh]">
       <div className="flex flex-col items-center justify-center p-5 bg-white rounded-lg w-[22rem] h-2/3">
