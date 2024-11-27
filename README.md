@@ -28,7 +28,7 @@ Finally, it also includes tests for three components using **Jest**.
 - **Loading Indicators:** A loading spinner is displayed while new data is being fetched.
 - **Error Handling:** The app displays an error message if there’s an issue with fetching the data.
 - **Responsive Design:** The app adjusts its layout to fit various screen sizes, ensuring a seamless experience across devices.
-- **Storybook for Components:** All UI components are developed and tested using Storybook.
+- **Storybook for Components:** Some UI components are developed and tested using Storybook.
 
 ## Setup
 
