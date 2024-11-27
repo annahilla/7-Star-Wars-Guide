@@ -93,9 +93,12 @@ const StarshipDetailsPage = () => {
             <div className="flex flex-col items-start justify-between md:flex-row md:items-center">
               <div className="flex flex-col gap-3 md:w-1/2">
                 <p>Model: {starship?.model}</p>
-                <p>
-                  Cost in credits: $
-                  {Number(starship?.cost_in_credits).toLocaleString()}
+                <p>Cost in credits:
+                  {
+                    starship?.cost_in_credits === "unknown"
+                      ? " unknown"
+                      :  ` $${Number(starship?.cost_in_credits).toLocaleString()}`
+                  }
                 </p>
                 <p>Atmospheric speed: {starship?.max_atmosphering_speed}</p>
               </div>
