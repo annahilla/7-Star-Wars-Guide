@@ -56,9 +56,13 @@ const starshipsSlice = createSlice({
     })
     .addCase(fetchStarships.fulfilled, (state, action: PayloadAction<{ results: Starship[]; next: string | null }>) => {
       state.loading = false;
-      state.starships = [...state.starships, ...action.payload.results];
+      const newStarships = action.payload.results.filter(
+        (newStarship) => !state.starships.some((starship) => starship.url === newStarship.url)
+      );
+      state.starships = [...state.starships, ...newStarships];
       state.nextPage = action.payload.next;
     })
+    
     .addCase(fetchStarships.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to fetch starships';

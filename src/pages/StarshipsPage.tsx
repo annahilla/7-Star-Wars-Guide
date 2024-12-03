@@ -21,8 +21,10 @@ const StarshipsPage = () => {
   };
 
   useEffect(() => {
-    loadMoreStarships();
-  }, []);
+    if (!loading && nextPage) {
+      loadMoreStarships();
+    }
+  }, [loading, nextPage]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -30,13 +32,15 @@ const StarshipsPage = () => {
         window.innerHeight + document.documentElement.scrollTop >=
         document.documentElement.offsetHeight - 100
       ) {
-        loadMoreStarships();
+        if (!loading && nextPage) {
+          loadMoreStarships();
+        }
       }
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [loadMoreStarships]);
+  }, [loading, nextPage]);
 
   return (
     <>
