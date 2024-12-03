@@ -11,7 +11,9 @@ interface User {
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async ({ email, password }: User, thunkAPI) => {
-    if (!email || email.trim() === "") {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+    if (!email || email.trim() === "" || !emailRegex.test(email)) {
       const errorMessage = "Please enter an email"; 
       thunkAPI.dispatch(setError(errorMessage)); 
       return thunkAPI.rejectWithValue(errorMessage);
@@ -42,7 +44,9 @@ export const signUpUser = createAsyncThunk(
   async (
     { email, password }: User, thunkAPI
   ) => {
-    if (!email || email.trim() === "") {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+
+    if (!email || email.trim() === "" || !emailRegex.test(email)) {
       const errorMessage = "Please enter an email"; 
       thunkAPI.dispatch(setError(errorMessage)); 
       return thunkAPI.rejectWithValue(errorMessage);
